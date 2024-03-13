@@ -1,0 +1,6 @@
+<locals>: 0
+<tail-recursive>: 3
+<sig>: ({-6,0,0}, {-6,0,0}, {-6,0,0}) -> {-6,0,0}
+<body>: <if>[{-6,0,0}] <call> <method>#nora.lang.Compare::eq[{-6,0,0}](!1,<num>0)
+	<then> !3
+	<else> <tail-rec>(<call> <multi_method>#nora.lang.Arith::sub[{-6,0,0}](!1,<num>1),<call> <multi_method>#nora.lang.Arith::add[{-6,0,0}](!2,!3),!2)

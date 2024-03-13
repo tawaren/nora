@@ -1,0 +1,25 @@
+import nora.lang.Arith.*
+import nora.lang.Compare.*
+
+module Primitives {
+    //if we make public we need converters
+    // allow sealed on traits
+    trait Index
+
+    //Todo: Shall this go in own module as meta?
+    @LayoutHandler(tuple_handler) @TypeId(-9) data Tuple
+
+    abstract data MyBool
+
+    //Just placeholder runtime takes care of them
+    @TypeId(-8) data Array[T] with Comparable
+    @TypeId(-7) data String with Comparable
+    @TypeId(-6) data Num with Arith, Comparable, Index
+    @TypeId(-5) data Int with Arith, Comparable, Index
+    @TypeId(-4) data Byte with Arith, Comparable, Index
+    @TypeId(-3) data Bool extends MyBool
+    @TypeId(-2) data Type
+    @TypeId(-1) data Function
+
+    data MyOtherBool extends MyBool
+}

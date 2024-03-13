@@ -1,0 +1,6 @@
+<name>: somePkg.Collection::None
+<super>: somePkg.Collection::Option
+<kind>: <concrete>
+<info>: {1,1,1}
+<generics>: +
+<fields>: 

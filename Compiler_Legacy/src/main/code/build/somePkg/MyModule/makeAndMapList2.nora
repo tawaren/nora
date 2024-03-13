@@ -1,0 +1,7 @@
+<locals>: 2
+<sig>: ({-5,0,0}) -> {0,0,3}[+{-6,0,0}]
+<body>: {
+		<let> $0 = <call> <method>#somePkg.MyModule::makeList[](!1);
+		<let> $1 = <call> <multi_method>#somePkg.Collection::map[{-5,0,0},{-6,0,0},{0,0,2}[+{-5,0,0}],{0,0,3}[+{-6,0,0}]]($0,<closure>[]()[{-1,0,0}[-{-5,0,0},+{-6,0,0}]]{0} <num>2);
+		<call> <multi_method>#somePkg.Collection::filter[{-6,0,0},{0,0,3}[+{-6,0,0}]]($1,<closure>[]()[{-1,0,0}[-{-6,0,0},+{-3,0,0}]]{0} <call> <method>#nora.lang.Compare::eq[{-6,0,0}](<call> <multi_method>#nora.lang.Arith::mod[{-6,0,0}](!1,<num>4),<num>0))
+	}

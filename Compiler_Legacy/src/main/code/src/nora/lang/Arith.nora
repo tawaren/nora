@@ -1,0 +1,25 @@
+import nora.lang.Primitives.*
+
+module Arith {
+    trait Arith
+
+    method add[T:Arith](n1:T, n2:T):T
+    method sub[T:Arith](n1:T, n2:T):T
+    method mul[T:Arith](n1:T, n2:T):T
+    method div[T:Arith](n1:T, n2:T):T
+    method mod[T:Arith](n1:T, n2:T):T
+
+    //Just Placeholders - the vm will recognize the name ??_integer and replace it with a node
+    @Named(add_num) @Primitive(add) method case add[Num](n1:Num, n2:Num):Num
+    @Named(sub_num) @Primitive(sub) method case sub[Num](n1:Num, n2:Num):Num
+    @Named(mul_num) @Primitive(mul) method case mul[Num](n1:Num, n2:Num):Num
+    @Named(div_num) @Primitive(div) method case div[Num](n1:Num, n2:Num):Num
+    @Named(mod_num) @Primitive(mod) method case mod[Num](n1:Num, n2:Num):Num
+    //Todo: if they belong to different families ambiguity is not necessary to record
+    //      we need to improve the checker
+    @Named(add_int) @Primitive(add) method case add[Int](n1:Int, n2:Int):Int
+    @Named(sub_int) @Primitive(sub) method case sub[Int](n1:Int, n2:Int):Int
+    @Named(mul_int) @Primitive(mul) method case mul[Int](n1:Int, n2:Int):Int
+    @Named(div_int) @Primitive(div) method case div[Int](n1:Int, n2:Int):Int
+    @Named(mod_int) @Primitive(mod) method case mod[Int](n1:Int, n2:Int):Int
+}

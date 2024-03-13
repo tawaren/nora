@@ -1,0 +1,9 @@
+<locals>: 2
+<sig>: ({-3,0,0}) -> {-5,0,0}
+<body>: {
+		<let> $0 = <create>#somePkg.Collection::Some[{-3,0,2}](!1);
+		<let> $1 = <if>[{-3,0,2}] !1
+		<then> !1
+		<else> <create>#nora.lang.Primitives::MyOtherBool[]();
+		<call> <method>#nora.lang.Hash::hashCode[{-3,0,2}]($1)
+	}

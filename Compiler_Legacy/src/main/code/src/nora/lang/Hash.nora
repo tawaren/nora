@@ -1,0 +1,14 @@
+import nora.lang.Arith.*
+import nora.lang.Compare.*
+import nora.lang.Primitives.*
+
+module Hash {
+
+    //We make a function instead of a multimethod fo now
+    // Reason: Overwriting this will only overwrite the first layer, as nora vm does not know that
+    //         nora.lang.Hash.hashCode is the high level hashCode function
+    //         later we have ways to modify behaviour over MetaProtocol and annotations
+    //           This then can be overwritten by telling nora vm over a meta protocol what to call
+    @Primitive(hash_code) function hashCode[T](any:T):Int
+
+}

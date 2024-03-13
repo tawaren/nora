@@ -1,0 +1,28 @@
+import nora.lang.Primitives.*
+
+module Compare {
+    trait Comparable
+
+    method lte[T:Comparable](n1:T, n2:T):Bool
+    method lt[T:Comparable](n1:T, n2:T):Bool
+    method gte[T:Comparable](n1:T, n2:T):Bool
+    method gt[T:Comparable](n1:T, n2:T):Bool
+
+    //We make a function instead of a multimethod fo now
+    // Reason: Overwriting this will only overwrite the first layer, as nora vm does not know that
+    //         nora.lang.Compare.eq is the high level eq function
+    //         later we have ways to modify behaviour over MetaProtocol and annotations
+    //           This then can be overwritten by telling nora vm over a meta protocol what to call
+    @Primitive(eq)
+    function eq[T](n1:T, n2:T):Bool
+
+    //Just Placeholders - the vm will recognize the name ??_integer and replace it with a node
+    @Named(lte_num) @Primitive(lte) method case lte[Num](n1:Num, n2:Num):Bool
+    @Named(lt_num) @Primitive(lt) method case lt[Num](n1:Num, n2:Num):Bool
+    @Named(gte_num) @Primitive(gte) method case gte[Num](n1:Num, n2:Num):Bool
+    @Named(gt_num) @Primitive(gt) method case gt[Num](n1:Num, n2:Num):Bool
+    @Named(lte_int) @Primitive(lte) method case lte[Int](n1:Int, n2:Int):Bool
+    @Named(lt_int) @Primitive(lt) method case lt[Int](n1:Int, n2:Int):Bool
+    @Named(gte_int) @Primitive(gte) method case gte[Int](n1:Int, n2:Int):Bool
+    @Named(gt_int) @Primitive(gt) method case gt[Int](n1:Int, n2:Int):Bool
+}

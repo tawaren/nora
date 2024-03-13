@@ -1,0 +1,8 @@
+<locals>: 0
+<tail-ctx-recursive>: 2
+<sig>: ({0,0,2}[+?0], {-1,0,0}[-?0,+{-3,0,0}]) -> {0,0,2}[+?0]
+<body>: <if>[{0,0,2}[+?0]] <subTypeOf>(!1,{0,1,1}[+?0])
+	<then> <if>[{0,0,2}[+?0]] <call> !2(<field>#somePkg.Collection::Cons[?0](!1,0))
+		<then> <tail-create>#somePkg.Collection::Cons[?0](<field>#somePkg.Collection::Cons[?0](!1,0),<tail-rec>(<field>#somePkg.Collection::Cons[?0](!1,1),!2))
+		<else> <tail-rec>(<field>#somePkg.Collection::Cons[?0](!1,1),!2)
+	<else> <create>#somePkg.Collection::Nil[?0]()

@@ -1,0 +1,5 @@
+<locals>: 0
+<sig>: ({-6,0,0}) -> {-6,0,0}
+<body>: <if>[{-6,0,0}] <call> <multi_method>#nora.lang.Compare::lte[{-6,0,0}](!1,<num>1)
+	<then> !1
+	<else> <call> <multi_method>#nora.lang.Arith::add[{-6,0,0}](<call> <method>#somePkg.MyModule::fib[](<call> <multi_method>#nora.lang.Arith::sub[{-6,0,0}](!1,<num>1)),<call> <method>#somePkg.MyModule::fib[](<call> <multi_method>#nora.lang.Arith::sub[{-6,0,0}](!1,<num>2)))

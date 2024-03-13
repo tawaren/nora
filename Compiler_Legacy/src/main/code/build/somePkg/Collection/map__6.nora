@@ -1,0 +1,5 @@
+<locals>: 0
+<sig>: ({0,0,2}[+?0], {-1,0,0}[-?0,+?1]) -> ?2
+<body>: <if>[?2] <subTypeOf>(!1,{0,1,1}[+?0])
+	<then> <call> <multi_method>#somePkg.Collection::add[?1,?2](<call> <method>#somePkg.Collection::map__6[?0,?1,?2](<field>#somePkg.Collection::Cons[?0](!1,1),!2),<call> !2(<field>#somePkg.Collection::Cons[?0](!1,0)))
+	<else> <call> <multi_method>#somePkg.Collection::create[?1,?2]()

@@ -1,0 +1,27 @@
+import nora.lang.Arith.*
+import nora.lang.Compare.*
+import nora.lang.Primitives.*
+
+module StringUtils {
+
+    @Primitive(substring)
+    function substring[T:Index](s:String, from:T, length:T):String
+    @Primitive(string_length)
+    function length(s:String):Int
+    @Primitive(string_concat)
+    function concat(left:String,right:String):String
+
+    //We make a function instead of a multimethod fo now
+    // Reason: Overwriting this will only overwrite the first layer, as nora vm does not know that
+    //         nora.lang.StringUtils.toString is the high level toString function
+    //         later we have ways to modify behaviour over MetaProtocol and annotations
+    //           This then can be overwritten by telling nora vm over a meta protocol what to call
+    @Primitive(to_string) function toString[T](any:T):String
+
+    @Named(lte_str) @Primitive(lte) method case lte[String](n1:String, n2:String):Bool
+    @Named(lt_str) @Primitive(lt) method case lt[String](n1:String, n2:String):Bool
+    @Named(gte_str) @Primitive(gte) method case gte[String](n1:String, n2:String):Bool
+    @Named(gt_str) @Primitive(gt) method case gt[String](n1:String, n2:String):Bool
+    //Todo: compare??
+
+}

@@ -1,0 +1,8 @@
+<name>: somePkg.Collection::Cons
+<super>: somePkg.Collection::ConsList
+<kind>: <concrete>
+<info>: {0,1,1}
+<generics>: +
+<fields>: 
+head:?0
+tail:{0,0,2}[?0]

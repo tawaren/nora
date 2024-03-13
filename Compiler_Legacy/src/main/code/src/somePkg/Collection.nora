@@ -1,0 +1,94 @@
+import nora.lang.Primitives.*
+
+module Collection {
+    trait Collection[E]
+    trait Blah extends Collection[String]
+    trait Foo extends Blah
+
+    sealed abstract data Option[T]
+    data None[T] extends Option[T]
+    data Some[T] extends Option[T]{e:T}
+
+    method create[E,C:Collection[E]]():C
+    method add[E,C:Collection[E]](col:C|elem:E):C
+    method remove[E,C:Collection[E]](col:C):Option[(C,E)]
+
+    method map[E1,E2=E1,C1:Collection[E1],C2:Collection[E2]=C1](col:C1|f:(E1) => E2):C2
+    method case[E1,E2=E1,C1:Collection[E1],C2:Collection[E2]=C1] map[E1,E2,C1,C2](col:C1|f:(E1) => E2):C2 =
+        let x = remove(col) in
+        if x is Some
+            then add(self(x->e->first,f), f(x->e->second))
+            else create()
+
+    method filter[E,C:Collection[E]](col:C|f:(E) => Bool):C
+    method case[E,C:Collection[E]] filter[E,C](col:C|f:(E) => Bool):C = {
+         let x = remove(col) in
+         if x is Some
+             then let r = self(x->e->first,f) in
+                 if f(x->e->second)
+                     then add(r, x->e->second)
+                     else r
+             else create()
+    }
+
+    abstract data List[E] with Collection[E]
+
+    sealed abstract data ConsList[E] extends List[E] with Collection[E]
+    data Nil[E] extends ConsList[E]
+    data Cons[E] extends ConsList[E] { head:E; tail:ConsList[E] }
+
+    //Todo: case[E:Foo] fails which is correct
+    //      later add an case[E:?Foo] which succeeds and generates a metaLanguageCaseFilter
+    method case[E] create[E,ConsList[E]]():ConsList[E] = Nil{}
+    method case[E] add[E,ConsList[E]](col:ConsList[E]|elem:E) = Cons{elem,col}
+    method case[E] remove[E,ConsList[E]](col:ConsList[E]):Option[(ConsList[E],E)] = if col is Cons
+        then Some{(col->tail,col->head)}
+        else None{}
+
+    //Todo: without one if this we need covariance in option
+
+    //Spezialized map
+    method case[E1,E2] map[E1,E2,List[E1],List[E2]](col:ConsList[E1]|f:(E1) => E2):ConsList[E2] =
+        if col is Cons
+            then Cons{f(col->head), self(col->tail,f)}
+            else Nil{}
+
+    //Semi Specialized map
+    method case[E1,E2,C2:Collection[E2]] map[E1,E2,List[E1],C2](col:ConsList[E1]|f:(E1) => E2):C2 =
+        if col is Cons
+            then add(self(col->tail,f), f(col->head))
+            else create()
+
+    //Specialised Filter
+    method case[E] filter[E,List[E]](col:ConsList[E]|f:(E) => Bool):ConsList[E] = {
+         if col is Cons
+            then if f(col->head)
+                then Cons{col->head, self(col->tail,f)}
+                else self(col->tail,f)
+            else Nil{}
+    }
+
+    sealed abstract data A
+    sealed abstract data B extends A
+    data C extends B{e:Int}
+
+    function varianceTest(opt:Option[A]):Option[B] = Some[C]{C{1}}
+
+    function varianceTestMain(n:Int):A = {
+        let x = Some[C]{C{n}} in
+        let v = varianceTest(varianceTest(x)) in
+        let v1 = varianceTest(varianceTest(None[C]{})) in
+        if v1 is Some then v1->e else
+        if v is Some then v->e else C{n+1}
+
+    }
+
+    //Just some ambiguity resolution testing
+    method test[T:A](a:T):T
+    @Before(testA2) @Named(testT) method case[T:A] test[T](t:T):T = t
+    @Named(testA) method case test[A](a:A) = a
+    @Named(testB) method case test[B](b:B) = b
+    @Before(testA) @Named(testA2) method case test[A](a:A) = a
+    @Named(testC) method case test[C](c:C) = c
+
+}

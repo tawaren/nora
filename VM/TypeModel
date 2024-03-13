@@ -1,0 +1,18 @@
+Each type is identified over a tripple:
+ cat: The type family it belongs to
+ start: the id of the suptype with the lowest id
+ end: its id & the id of the suptype with the highest id (which is itself as it is a subtype of itself)
+
+Abstract types have start != end
+Concrete types have start == end
+Primitive types have start == end == 0
+
+Reason 1: This allows effective subtype checks: a is b if a.cat == b.cat & a.start >= b.start & a.end <= b.end
+           Often a.cat == b.cat is statically given
+           Often we statically know that a.start == a.end
+           Thus the check ofthen is:  a.id >= b.start & a.id <= b.end
+           Meaning we can store id hot in datatypes to make blazing fast subtype checks
+
+Reason 2: Primitves are the first concrete in a family
+          Higher level language can add super types without changing its representation
+          Thus a PrimitiveArray can become a subtype of a generic High level language array

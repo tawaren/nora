@@ -1,0 +1,12 @@
+<family>: 0
+<length>: 4
+<definitions>: 
+somePkg.Collection::Nil
+somePkg.Collection::Cons
+somePkg.Collection::ConsList
+somePkg.Collection::List
+<structure>: 
+0
+0
+2
+3

@@ -1,0 +1,10 @@
+<family>: 2
+<length>: 3
+<definitions>: 
+somePkg.Collection::C
+somePkg.Collection::B
+somePkg.Collection::A
+<structure>: 
+0
+1
+2

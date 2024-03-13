@@ -1,0 +1,12 @@
+<locals>: 3
+<sig>: ({-5,0,0}) -> {2,0,2}
+<body>: {
+		<let> $0 = <create>#somePkg.Collection::Some[{2,0,0}](<create>#somePkg.Collection::C[](!1));
+		<let> $1 = <call> <method>#somePkg.Collection::varianceTest[](<call> <method>#somePkg.Collection::varianceTest[]($0));
+		<let> $2 = <call> <method>#somePkg.Collection::varianceTest[](<call> <method>#somePkg.Collection::varianceTest[](<create>#somePkg.Collection::None[{2,0,0}]()));
+		<if>[{2,0,1}] <subTypeOf>($2,{1,0,0}[+{2,0,1}])
+		<then> <field>#somePkg.Collection::Some[{2,0,1}]($2,0)
+		<else> <if>[{2,0,1}] <subTypeOf>($1,{1,0,0}[+{2,0,1}])
+			<then> <field>#somePkg.Collection::Some[{2,0,1}]($1,0)
+			<else> <create>#somePkg.Collection::C[](<call> <multi_method>#nora.lang.Arith::add[{-5,0,0}](!1,<int>1))
+	}

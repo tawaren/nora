@@ -1,0 +1,3 @@
+<locals>: 0
+<sig>: ({-7,0,0}) -> {-5,0,0}
+<body>: <primitive>#string_length(!1)

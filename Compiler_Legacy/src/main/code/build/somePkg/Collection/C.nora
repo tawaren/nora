@@ -1,0 +1,7 @@
+<name>: somePkg.Collection::C
+<super>: somePkg.Collection::B
+<kind>: <concrete>
+<info>: {2,0,0}
+<generics>: 
+<fields>: 
+e:{-5,0,0}

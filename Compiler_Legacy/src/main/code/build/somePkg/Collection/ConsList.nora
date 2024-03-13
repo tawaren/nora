@@ -1,0 +1,6 @@
+<name>: somePkg.Collection::ConsList
+<super>: somePkg.Collection::List
+<kind>: <abstract>
+<info>: {0,0,2}
+<generics>: +
+<fields>: 

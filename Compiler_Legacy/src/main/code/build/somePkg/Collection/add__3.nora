@@ -1,0 +1,3 @@
+<locals>: 0
+<sig>: ({0,0,2}[+?0], ?0) -> {0,1,1}[+?0]
+<body>: <create>#somePkg.Collection::Cons[?0](!2,!1)

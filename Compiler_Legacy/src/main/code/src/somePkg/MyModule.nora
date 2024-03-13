@@ -1,0 +1,135 @@
+import nora.lang.Primitives.*
+import somePkg.Collection.*
+import nora.lang.StringUtils.*
+import nora.lang.Hash.*
+
+
+module MyModule {
+    function fib(n:Num):Num =
+        if n <= 1
+            then n
+            else fib(n-1)+fib(n-2)
+
+   function tailFibNum(term:Num,val:Num,prev:Num):Num =
+        if term == 0 then prev
+        else self(term - 1, val+prev, val)
+
+    function fastFibNum(n:Num):Num = tailFibNum(n+1,0,1)
+
+    //todo allow tailFib for recursion as well if:
+    //     1. No Types Applied (or same as generics)
+    //     2. Not shadowed (this is hard in parser) -- tracking ArgNames & Lets is needed
+   function tailFib(term:Int,val:Int,prev:Int):Int =
+        if term == 0 then prev
+        else self(term - 1, val+prev, val)
+
+    function fastFib(n:Int):Int = tailFib(n+1,0,1)
+
+    function tailMakeList(n:Int, end:Int, acc:ConsList[Int]):List[Int] = {
+        if n > end then acc else self(n+1, end, Cons{n,acc})
+    }
+
+    function makeListFast(n:Int):List[Int] = tailMakeList(1,n,Nil{})
+
+    function makeList(n:Int):ConsList[Int] = {
+        if n == 0 then create() else add(makeList(n - 1), n)
+    }
+
+    function makeListPlusOne(n:Int):List[Int] = {
+        if n == 0 then add(create(),n) else add(makeListOther(n - 1), n)
+    }
+
+    function makeListOther(n:Int):ConsList[Int] = {
+        if n == 1 then add(create(),10000) else add(makeListOther(n - 1), n)
+    }
+
+    function compareList(l:List[Int], r:List[Int]) = l == r
+    function stringifyList(l:List[Int]) = toString(l)
+    function hashCodeList(l:List[Int]) = hashCode(l)
+
+    function compareFunList(l:List[(Int) => Int], r:List[(Int) => Int]) = l == r
+    function hashFunList(l:List[(Int) => Int]) = hashCode(l)
+    function stringifyFunList(l:List[(Int) => Int]) = toString(l)
+
+
+    function makeAndMapList(n:Int) = {
+        let l = makeList(n) in
+        //Todo: Make work: needs reclassification of :Types priority (must be very high)
+        // let m:List[Num] = map(l, \s -> 2:Num ) in
+        // let m:List[Num] = map(l, \s -> (2:Num) ) in <-- already works
+        let m = map(l, \s -> s*2 ) in
+        filter(m, \s -> s%4 == 0)
+    }
+
+    function makeAndMapList2(n:Int):List[Num] = {
+        let l = makeList(n) in
+        // See whats the problem and if we can make work <-- probably not
+        //let m = map(l, \s -> 2:Num ) in
+        let m:List[Num] = map(l, \s -> 2) in
+        filter(m, \s -> s%4 == 0)
+    }
+
+    function makeAndMapListFast(n:Int) = {
+            let l = makeListFast(n) in
+            let m = map(l, \s -> s*2 ) in
+            filter(m, \s -> s%4 == 0)
+    }
+
+    function mapFilterList(l:List[Int]) = {
+        filter(map(l, \s -> s*2 ), \s -> s%4 == 0)
+    }
+
+    function mapReverseTail(l:ConsList[Int], acc:ConsList[Int], f:(Int) => Int):ConsList[Int] = {
+        if l is Cons
+            then self(l->tail, Cons{f(l->head),acc}, f)
+            else acc
+    }
+
+    function mapReverseList(l:ConsList[Int]):ConsList[Int] = {
+       mapReverseTail(l, Nil{}, \s -> s*2 )
+    }
+
+    //Note: currently needs manual transform to work
+    function mapCtxTailList(l:ConsList[Int], f:(Int) => Int):ConsList[Int] = {
+        if l is Cons
+            //This cons is the tail cons with tail res arg
+            then Cons{f(l->head),self(l->tail, f)}
+            else Nil{}
+    }
+
+    function mapCtxList(l:ConsList[Int]):ConsList[Int] = {
+        mapCtxTailList(l,\s -> s*2)
+    }
+
+    function mapList(l:List[Int]):List[Int] = {
+        map(l,\s -> s*2)
+    }
+
+    function helloWorld():Int = 0
+
+    //Todo: without (Num, Int) it throws - fix
+    function pack(a:Num, b:Int):(Num, Int) = (a,b)
+
+    function primHierarchies(b:Bool):MyBool = {
+        let a:Option[MyBool] = Some{b} in
+        let c:MyBool = if b then b else MyOtherBool{} in
+        if a is Some then a->e else c
+    }
+
+    function primHierarchyHash(b:Bool):Int = {
+        let a:Option[MyBool] = Some{b} in
+        let c:MyBool = if b then b else MyOtherBool{} in
+        hashCode(c)
+    }
+
+    function makeClosureTList[T](n:Int):ConsList[(Int) => Int] = {
+        //Todo: Make work / improve error
+        //if n == 0 then create() else add(makeClosureTList(n - 1), \f -> f+2)
+        if n == 0 then create() else add(self(n - 1), \f -> f+2)
+
+    }
+
+    function makeClosureList(n:Int):ConsList[(Int) => Int] = makeClosureTList[String](n)
+    function makeSameClosureList(n:Int):ConsList[(Int) => Int] = makeClosureTList[String](n)
+    function makeOtherClosureList(n:Int):ConsList[(Int) => Int]  = makeClosureTList[Int](n)
+}

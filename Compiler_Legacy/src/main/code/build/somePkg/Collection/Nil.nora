@@ -1,0 +1,6 @@
+<name>: somePkg.Collection::Nil
+<super>: somePkg.Collection::ConsList
+<kind>: <concrete>
+<info>: {0,0,0}
+<generics>: +
+<fields>: 

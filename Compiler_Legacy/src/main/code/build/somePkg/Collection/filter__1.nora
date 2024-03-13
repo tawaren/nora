@@ -1,0 +1,13 @@
+<locals>: 2
+<sig>: (?1, {-1,0,0}[-?0,+{-3,0,0}]) -> ?1
+<body>: {
+		<let> $0 = <call> <multi_method>#somePkg.Collection::remove[?0,?1](!1);
+		<if>[?1] <subTypeOf>($0,{1,0,0}[+{-9,0,0}[+?1,+?0]])
+		<then> {
+				<let> $1 = <call> <method>#somePkg.Collection::filter__1[?0,?1](<field>#nora.lang.Primitives::Tuple[?1,?0](<field>#somePkg.Collection::Some[{-9,0,0}[+?1,+?0]]($0,0),0),!2);
+				<if>[?1] <call> !2(<field>#nora.lang.Primitives::Tuple[?1,?0](<field>#somePkg.Collection::Some[{-9,0,0}[+?1,+?0]]($0,0),1))
+				<then> <call> <multi_method>#somePkg.Collection::add[?0,?1]($1,<field>#nora.lang.Primitives::Tuple[?1,?0](<field>#somePkg.Collection::Some[{-9,0,0}[+?1,+?0]]($0,0),1))
+				<else> $1
+			}
+		<else> <call> <multi_method>#somePkg.Collection::create[?0,?1]()
+	}

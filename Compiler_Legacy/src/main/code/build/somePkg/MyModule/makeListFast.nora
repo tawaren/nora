@@ -1,0 +1,3 @@
+<locals>: 0
+<sig>: ({-5,0,0}) -> {0,0,3}[+{-5,0,0}]
+<body>: <call> <method>#somePkg.MyModule::tailMakeList[](<int>1,!1,<create>#somePkg.Collection::Nil[{-5,0,0}]())

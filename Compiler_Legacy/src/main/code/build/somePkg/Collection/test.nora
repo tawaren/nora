@@ -1,0 +1,7 @@
+<sig>: (?0) | () -> ?0
+<methods>:
+somePkg.Collection::testC[{2,0,0}]({2,0,0}) -> {2,0,0}
+somePkg.Collection::testB[{2,0,1}]({2,0,1}) -> {2,0,1}
+somePkg.Collection::testA2[{2,0,2}]({2,0,2}) -> {2,0,2}
+somePkg.Collection::testA[{2,0,2}]({2,0,2}) -> {2,0,2}
+somePkg.Collection::testT[1|?0](?0) -> ?0

@@ -1,0 +1,11 @@
+<locals>: 2
+<sig>: ({-3,0,0}) -> {-3,0,2}
+<body>: {
+		<let> $0 = <create>#somePkg.Collection::Some[{-3,0,2}](!1);
+		<let> $1 = <if>[{-3,0,2}] !1
+		<then> !1
+		<else> <create>#nora.lang.Primitives::MyOtherBool[]();
+		<if>[{-3,0,2}] <subTypeOf>($0,{1,0,0}[+{-3,0,2}])
+		<then> <field>#somePkg.Collection::Some[{-3,0,2}]($0,0)
+		<else> $1
+	}

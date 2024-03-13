@@ -1,0 +1,3 @@
+<sig>: () | () -> ?1
+<methods>:
+somePkg.Collection::create__2[1|?0, {0,0,2}[?0]]() -> {0,0,2}[+?0]
